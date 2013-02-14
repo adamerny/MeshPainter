@@ -27,14 +27,14 @@ public class MeshPainter : MonoBehaviour {
 	};
 	
 	void Start () {
-		blockTexture = new Texture2D(1,1,TextureFormat.ARGB32,false);
-		blockTexture.SetPixel(0,0,Color.white);
-		blockTexture.Apply();
+        blockTexture = new Texture2D(1,1,TextureFormat.ARGB32,false);
+        blockTexture.SetPixel(0,0,Color.white);
+        blockTexture.Apply();
 		
-		var gridMesh = new Mesh();
-		gridMesh.name = "GridMesh";
-    	gridObject = new GameObject("gridObject");
-		gridObject.active = true;
+        var gridMesh = new Mesh();
+        gridMesh.name = "GridMesh";
+        gridObject = new GameObject("gridObject");
+        gridObject.active = true;
 		
    		var xSections = Mathf.FloorToInt((GridSizeWidth ) / GridSectionWidth);
    		var zSections = Mathf.FloorToInt((GridSizeHeight ) / GridSectionHeight);
@@ -45,7 +45,7 @@ public class MeshPainter : MonoBehaviour {
         Vector3[] meshVertices = new Vector3[numVertices];
         meshTriangles = new int[numTriangles];
         gridColors = new Color[numVertices];
-   
+
         var vertIndex = 0;
         for (var z = 0.0f; z < vCount; z++){
             for (var x = 0.0f; x < hCount; x++){
@@ -54,7 +54,7 @@ public class MeshPainter : MonoBehaviour {
                 vertIndex++;
             }
         }
-       
+
         vertIndex = 0;
         for (var z= 0; z < zSections; z++){
             for (var x= 0; x < xSections; x++){
@@ -72,15 +72,15 @@ public class MeshPainter : MonoBehaviour {
         gridMesh.triangles = meshTriangles;
         gridMesh.RecalculateNormals();
         gridMesh.RecalculateBounds();
-	
-	    mf = gridObject.AddComponent<MeshFilter>();
-	    MeshRenderer mr = gridObject.AddComponent<MeshRenderer>();
-	    mf.mesh = gridMesh;
-		mr.material.shader = Shader.Find ("VertexColor");
-		gridObject.transform.parent = Camera.mainCamera.transform;
-		gridObject.transform.localPosition = new Vector3(0,0,10);
-		gridObject.transform.localRotation = Quaternion.Euler(90,180,0);
-		gridObject.AddComponent<MeshCollider>();
+        
+        mf = gridObject.AddComponent<MeshFilter>();
+        MeshRenderer mr = gridObject.AddComponent<MeshRenderer>();
+        mf.mesh = gridMesh;
+        mr.material.shader = Shader.Find ("VertexColor");
+        gridObject.transform.parent = Camera.mainCamera.transform;
+        gridObject.transform.localPosition = new Vector3(0,0,10);
+        gridObject.transform.localRotation = Quaternion.Euler(90,180,0);
+        gridObject.AddComponent<MeshCollider>();
 	}
 	
 	void Update () {
